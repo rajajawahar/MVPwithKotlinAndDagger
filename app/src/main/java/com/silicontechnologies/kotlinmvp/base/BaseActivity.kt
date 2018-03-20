@@ -2,7 +2,6 @@ package com.silicontechnologies.kotlinmvp.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 
@@ -15,7 +14,6 @@ abstract class BaseActivity<in V : BaseView, T : BasePresenter<V>> : AppCompatAc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mPresenter.attach(this as V)
     }
 
     override fun getContext(): Context = this
@@ -40,5 +38,7 @@ abstract class BaseActivity<in V : BaseView, T : BasePresenter<V>> : AppCompatAc
         super.onDestroy()
         mPresenter.detach()
     }
+
+    abstract fun instantiatePresenter()
 
 }
