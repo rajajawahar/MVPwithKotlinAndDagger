@@ -8,12 +8,14 @@ import android.widget.Toast
 /**
  * Created by rajajawahar on 10/01/18.
  */
-abstract class BaseActivity<in V : BaseView, T : BasePresenter<V>> : AppCompatActivity(), BaseView {
+abstract class BaseActivity<in V : BaseView, in T : BasePresenter<V>> : AppCompatActivity(),
+        BaseView {
 
-    protected abstract var mPresenter: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mPresenter.attachView(this as V)
+
     }
 
     override fun getContext(): Context = this
@@ -36,7 +38,6 @@ abstract class BaseActivity<in V : BaseView, T : BasePresenter<V>> : AppCompatAc
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter.detach()
     }
 
     abstract fun instantiatePresenter()
